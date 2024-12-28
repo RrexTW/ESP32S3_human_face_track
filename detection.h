@@ -1,10 +1,8 @@
 #include"iot_servo.h"
 #include "esp_log.h"
+
 #define SERVO_CH0_PIN (gpio_num_t)2
-#define SERVO_CH1_PIN (gpio_num_t)14
-
-//esp-who\examples\human_face_detection\terminal\main\app_main.cpp
-
+#define SERVO_CH1_PIN (gpio_num_t)14  //避免與鏡頭腳位衝突
 
 servo_config_t servo_cfg = {
     .max_angle = 180,
@@ -28,20 +26,14 @@ servo_config_t servo_cfg = {
 static float x_angle=90;
 static float y_angle=85;
 
-void servo_init(){
-    iot_servo_init(LEDC_LOW_SPEED_MODE, &servo_cfg);
-    // iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 0, x_angle);
-    // iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 1, y_angle);
-}
-
 void detected(float x,float y,int x_cent,int y_cent,const char*TAG){
 
 /*
-俯仰控制伺服馬達角度float(100~170)
+俯仰控制伺服馬達角度float(30~170)
 左右搖擺伺服馬達角度float(10~170)
 x,y為人臉位置/x_cent,y_cent為畫面中心位置
 */
-    servo_init();
+    iot_servo_init(LEDC_LOW_SPEED_MODE, &servo_cfg);
     if(x<x_cent-20&&x_angle<170){
         if(x<x_cent-40)  x_angle+=5;
         x_angle+=5;
