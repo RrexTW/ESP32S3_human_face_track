@@ -2,7 +2,7 @@
 #include "esp_log.h"
 
 #define SERVO_CH0_PIN (gpio_num_t)2
-#define SERVO_CH1_PIN (gpio_num_t)14  //避免與鏡頭腳位衝突
+#define SERVO_CH1_PIN (gpio_num_t)14
 
 servo_config_t servo_cfg = {
     .max_angle = 180,
